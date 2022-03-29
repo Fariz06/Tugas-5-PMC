@@ -7,7 +7,9 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{float}
 \usepackage[colorlinks, urlcolor=blue]{hyperref}
+\graphicspath{{./Pictures/}}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -15,23 +17,11 @@
 
 \title{Perkalian Matriks dengan Beberapa Algoritma}
 
-\author{\IEEEauthorblockN{Surya Dharma}
-\IEEEauthorblockA{\textit{School of Electrical Engineering and Informatics)} \\
-\textit{Institut Teknologi Bandung)}\\
+\author{\IEEEauthorblockN{Surya Dharma*, Fariz Iftikhar Falakh†, Senggani Fatah Sedayu§}
+\IEEEauthorblockA{\textit{School of Electrical Engineering and Informatics} \\
+\textit{Institut Teknologi Bandung}\\
 Bandung, Indonesia\\
-Email: 13220027@std.stei.itb.ac.id}
-\and
-\IEEEauthorblockN{Fariz Iftikhar Falakh}
-\IEEEauthorblockA{\textit{School of Electrical Engineering and Informatics)} \\
-\textit{Institut Teknologi Bandung)}\\
-Bandung, Indonesia\\
-Email: 13220029@std.stei.itb.ac.id}
-\and
-\IEEEauthorblockN{Senggani Fatah Sedayu}
-\IEEEauthorblockA{\textit{School of Electrical Engineering and Informatics)} \\
-\textit{Institut Teknologi Bandung)}\\
-Bandung, Indonesia\\
-Email: 13220035@std.stei.itb.ac.id}
+\{*13220027, †13220029, §13220035\}@std.stei.itb.ac.id}
 }
 
 \maketitle
@@ -40,7 +30,7 @@ Email: 13220035@std.stei.itb.ac.id}
 Metode perkalian matriks yang umumnya diketahui adalah dengan perkalian baris kolom (dalam pemrograman perkalian baris kolom disebut \textit{Naive algorithm}).
 Dengan berkembangnya ilmu matematika dan komputasi, diperoleh beberapa algoritma perkalian matriks yang memakan lebih sedikit waktu dibandingkan \textit{Naive algorithm}).
 Penulis akan menggunakan beberapa algoritma untuk menghitung hasil perkalian 2 buah matriks dengan ukuran besar.
-Lalu penulis akan membandingkan kompleksitas waktu dari algoritma-algoritma tersebut.
+Lalu penulis akan membandingkan kompleksitas waktu dari algoritma-algoritma tersebut dengan menganalisis kompleksitas waktu dan ruang.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -59,16 +49,60 @@ Penulis akan membandingkan seberapa cepat suatu algoritma menyelesaikan hasil pe
 
 \section{Studi Pustaka}
 \subsection{Naive Algorithm}
-
 ini penjelasan naive
+
+\begin{algorithm}
+    \caption{Naive Algorithm}
+    \KwIn{Matriks A, matriks B ukuran $n \times n$}
+    \KwOut{Matriks C ukuran $n \times n$}
+    \KwSty{Procedure}\\
+    \For{$i = 0$ \KwTo $n$}{
+        \For{$j = 0$ to \KwTo $n$}{
+            $C[i][j] = 0$\\
+            \For{$k = 0$ \KwTo $n$}{
+                $C[i][j] = C[i][j] + A[i][k] \cdot B[k][j]$
+            }
+        }
+    }
+\end{algorithm}
 
 \subsection{Strassen Algorithm}
 ini penjelasan strassen
+
+\begin{function}
+    \caption{KaliStrassen(A, B : matriks, n : \textbf{integer})}
+	\KwIn{Matriks A, matriks B, dan ukuran matriks}
+	\KwOut{Hasil perkalian A dan B}
+    \KwSty{Algorithm}\\
+	\eIf{n = 1}{
+        \textbf{return} A $\ast$ B
+    }{
+        Bagi A menjadi A11, A12, A21, dan A22 dengan ukuran $n/2 \times n/2$\\
+        Bagi B menjadi B11, B12, B21, dan B22 dengan ukuran $n/2 \times n/2$\\
+        M1 $\leftarrow$ KaliStrassen(A12 - A22, B21 + B22, $n/2$)\\
+        M2 $\leftarrow$ KaliStrassen(A11 + A22, B11 + B22, $n/2$)\\
+        M3 $\leftarrow$ KaliStrassen(A11 - A21, B11 + B12, $n/2$)\\
+        M4 $\leftarrow$ KaliStrassen(A11 + A12, B22, $n/2$)\\
+        M5 $\leftarrow$ KaliStrassen(A11, B12 - B22, $n/2$)\\
+        M6 $\leftarrow$ KaliStrassen(A22, B21 - B11, $n/2$)\\
+        M7 $\leftarrow$ KaliStrassen(A21 + A22, B11, $n/2$)\\
+        C11 $\leftarrow$ M1 + M2- M4 + M6\\
+        C12 $\leftarrow$ M4 + M5\\
+        C21 $\leftarrow$ M6 + M7\\
+        C22 $\leftarrow$ M2 - M3 + M5 - M7\\
+        \textbf{return} C \{C gabungan C11, C12, C21, dan C22\}
+    }
+\end{function}
 
 \subsection{Cannon Algorithm}
 Dalam \textit{computer science}, algoritma Cannon adalah algoritma terdistribusi (dirancang untuk dilakukan pada \textit{hardware} komputer yang terdiri dari berbagai prosesor)
 untuk perkalian matriks untuk mesh (jaringan yang terbentuk dari sel dan titik) 2 dimensi.
 Algoritma ini cocok digunakan untuk mesh N*N (atau matriks N*N) dan tidak cocok digunakan untuk matriks bukan persegi.
+Modifikasi matriks dengan algoritma Cannon berhubungan dengan geser sirkular (\textit{circular shift}).
+Geser sirkular adalah operasi menggeser elemen-elemen array (atau matriks), mirip seperti \textit{bit shifting}.
+Misalnya digunakan kasus geser sirkular kiri dan \textit{bit shiifting} ke kiri.
+Perbedaannya adalah dengan \textit{bit shiifting}, elemen paling kiri akan hilang, 
+sementara dengan geser sirkular kiri, elemen paling kiri akan dipindahkan ke paling kanan.
 
 \begin{algorithm}
     \caption{Algoritma Cannon}
@@ -91,8 +125,38 @@ Algoritma ini cocok digunakan untuk mesh N*N (atau matriks N*N) dan tidak cocok 
     }
 \end{algorithm}
 
-\subsection{Fungsi Waktu}
-ini penjelasan big o notation ama T(n)
+\begin{figure}[h]
+    \includegraphics[width = 8cm, height = 6cm]{Ilustrasi_algoritma_cannon.png}
+    \centering
+    \caption{Ilustrasi algoritma Cannon}
+\end{figure}
+
+\subsection{Kompleksitas}
+Ada banyak hal yang harus dipertimbangkan dalam membuat sebuah program.
+Salah satunya adalah cara/algoritma implementasinya yang bergantung pada ukuran input.
+Untuk membandingkan performa beberapa algoritma, digunakan analisis asimtotik.
+Ada 3 jenis notasi untuk menyatakan kompleksitas algoritma, yaitu notasi $\Theta$ (theta), notasi \textit{Big O}, dan notasi $\Omega$ (omega).
+
+Notasi \textit{Big O} menyatakan batas atas asimtotik dari kompleksitas suatu algoritma.
+Notasi $\Omega$ menyatakan batas bawah asimtotik dari kompleksitas suatu algoritma.
+Notasi $\Theta$ merupakan gabungan notasi \textit{Big O} dan Notasi $\Omega$.
+Notasi yang biasanya digunakan adalah notasi \textit{Big O}.
+
+Definisi \textit{Big O} secara formal adalah ada suatu fungsi $T$ yang memenuhi
+$T(n) = O(f(n))$ jika terdapat suatu konstanta $c$ dan $N_0$ sehingga $T(n) \le c \cdot f(n)$ untuk semua $n \ge N_0$.
+Dalam penulisan notasi, pengguna hanya fokus pada bagian dominan dari sebuah fungsi kompleksitas.
+Misal terdapat sebuah fungsi $T(n) = n^2 + n + 1$.
+Karena $n^2$ tumbuh lebih cepat dibandingkan dengan $n$ dan 1 untuk input n yang makin besar, 
+maka notasi \textit{Big O} dari $T(n)$ adalah $O(n^2)$.
+Cara lain untuk menentukan \textit{Big O} dari $T(n)$ adalah dengan menggunakan definisi notasi \textit{Big O}.
+Pilih $f(n) = N^2$, $c = 2$, dan $N_0 = 2$, maka $T(n)$ akan selalu lebih kecil dari $c \cdot f(n)$ untuk semua $n \ge N_0$ 
+sehingga diperoleh notasi \textit{Big O} dari $T(n)$ yaitu $O(n^2)$.
+
+\begin{figure}[h]
+    \includegraphics[width = 6cm, height = 5cm]{Kurva_Kompleksitas_Waktu.png}
+    \centering
+    \caption{Kurva perbandingan kompleksitas waktu suatu algoritma}
+\end{figure}
 
 \section{Metodologi Penelitian}
 ini metodologi
@@ -104,7 +168,22 @@ ini metodologi
 \subsection{Implementasi Strassen Algorithm pada Bahasa C}
 
 \subsection{Implementasi Cannon Algorithm pada Bahasa C}
+Ada 7 prosedur yang digunakan untuk mengimplementasikan algoritma Cannon, 1 untuk inisialisasi matriks, 1 untuk mencetak isi matriks (untuk keperluan \textit{debugging}), 
+4 untuk memodifikasi elemen matriks, dan 1 untuk mengisi matriks hasil.
+Inisialisasi matriks pada dasarnya mengisi 2 matriks dengan nilai dalam rentang 0 - 9.
+Pengisian matriks hasil diimplementasikan dengan \textit{nested loop} indeks baris dan kolom, 
+lalu elemen matriks C baris ke-$i$ kolom ke-$j$ didapatkan dari perkalian elemen matriks A baris ke-$i$ kolom ke-$j$ dan elemen matriks B baris ke-$i$ kolom ke-$j$.
 
+Prosedur yang digunakan untuk memodifikasi elemen matriks adalah geser sirkular kiri baris, geser sirkular atas kolom, geser sirkular kiri matriks, dan geser sirkular atas matriks.
+Geser sirkular kiri baris diimplementasikan dengan menyimpan elemen pertama array (misalnya di variabel $temp$), lalu dilakukan \textit{looping} untuk menukar elemen array.
+Setelah itu, elemen array paling terakhir akan disubstitusikan dengan nilai dari $temp$.
+Geser sirkular atas kolom diimplementasikan dengan cara yang mirip, hanya berbeda pada parameter fungsi dan pengaksesan array saja.
+Geser sirkular kiri matriks diimplementasikan dengan menyimpan elemen kolom 0 (misalnya di array $arr\_temp$), lalu dilakukan \textit{looping} untuk menukar elemen setiap baris.
+Setelah itu, kolom terakhir matriks akan diisi oleh array $arr\_temp$ sesuai indeksnya.
+Geser sirkular atas matriks diimplementasikan dengan cara yang mirip, 
+perbedaannya adalah geser sirkular kiri menyimpan elemen kolom 0, sedangkan geser sirkular atas menyimpan elemen baris 0.
+Implementasi algoritma ini dalam bahasa pemrograman C dapat dilihat di
+\href{https://github.com/Fariz06/Tugas-5-PMC}{sini}.
 
 \section{Kesimpulan}
 Kesimpulannya pusing tujuh keliling
