@@ -67,7 +67,10 @@ ini penjelasan naive
 \end{algorithm}
 
 \subsection{Strassen Algorithm}
-ini penjelasan strassen
+Algoritma Strassen merupakan algoritma untuk mencari hasil perkalian yang lebih cepat dibanding dengan Algoritma naive.
+Algoritma Naive melakukan perhitungan perkalian matriks biasa yang memerlukan $n^3$ perhitungan, sedangkan untuk Algoritma Strassen memerlukan $n^(2.81)$ perhitungan. 
+Berkurangnya banyak perhitungan disebabkan oleh penggunaan pengurangan dan penjumlahan pada perhitungan sebelumnya untuk mendapat nilai baru.
+Karena proses pengurangan dan penjumlahan lebih ringan dibanding dengan perkalian, maka time complexity dari algoritma menurun.
 
 \begin{function}
     \caption{KaliStrassen(A, B : matriks, n : \textbf{integer})}
