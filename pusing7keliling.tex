@@ -49,8 +49,9 @@ Penulis akan membandingkan seberapa cepat suatu algoritma menyelesaikan hasil pe
 
 \section{Studi Pustaka}
 \subsection{Naive Algorithm}
-ini penjelasan naive
+Naive algorithm seperti namanya, merupakan sebuah algoritma yang sangat polos di mana pada algoritma ini kita akan mengkalkulasikan setiap \textit{entry} menjadi sebuah \textit{sum of product}. Karena hal inilah \textit{Naive Algorithm} memiliki lebih banyak perhitungan dibandingkan algoritma-algoritma perkalian matriks lainnya. Pada algoritma, untuk sebuah matriks $n\times n$ yang dikalikan dengan matriks berukuran $n\times n$ lainnya, algoritma ini membutuhkan $n^3$ perhitungan, sehingga time complexity dari algoritma ini adalah \textit{O($n^3$)}.
 
+\subsubsection{Source Code Naive Algorithm}
 \begin{algorithm}
     \caption{Naive Algorithm}
     \KwIn{Matriks A, matriks B ukuran $n \times n$}
@@ -72,7 +73,8 @@ Algoritma Naive melakukan perhitungan perkalian matriks biasa yang memerlukan $n
 Berkurangnya banyak perhitungan disebabkan oleh penggunaan pengurangan dan penjumlahan pada perhitungan sebelumnya untuk mendapat nilai baru.
 Karena proses pengurangan dan penjumlahan lebih ringan dibanding dengan perkalian, maka time complexity dari algoritma menurun.
 
-\begin{function}
+\subsubsection{Source Code Strassen Algorithm}
+\begin{algorithm}
     \caption{KaliStrassen(A, B : matriks, n : \textbf{integer})}
 	\KwIn{Matriks A, matriks B, dan ukuran matriks}
 	\KwOut{Hasil perkalian A dan B}
@@ -95,7 +97,7 @@ Karena proses pengurangan dan penjumlahan lebih ringan dibanding dengan perkalia
         C22 $\leftarrow$ M2 - M3 + M5 - M7\\
         \textbf{return} C \{C gabungan C11, C12, C21, dan C22\}
     }
-\end{function}
+\end{algorithm}
 
 \subsection{Cannon Algorithm}
 Dalam \textit{computer science}, algoritma Cannon adalah algoritma terdistribusi (dirancang untuk dilakukan pada \textit{hardware} komputer yang terdiri dari berbagai prosesor)
@@ -107,6 +109,7 @@ Misalnya digunakan kasus geser sirkular kiri dan \textit{bit shiifting} ke kiri.
 Perbedaannya adalah dengan \textit{bit shiifting}, elemen paling kiri akan hilang, 
 sementara dengan geser sirkular kiri, elemen paling kiri akan dipindahkan ke paling kanan.
 
+\subsubsection{Source Code Cannon Algorithm}
 \begin{algorithm}
     \caption{Algoritma Cannon}
     \KwResult{Hasil perkalian matriks A berukuran n*n dan matriks B berukuran n*n}
@@ -156,9 +159,9 @@ Pilih $f(n) = N^2$, $c = 2$, dan $N_0 = 2$, maka $T(n)$ akan selalu lebih kecil 
 sehingga diperoleh notasi \textit{Big O} dari $T(n)$ yaitu $O(n^2)$.
 
 \begin{figure}[h]
-    \includegraphics[width = 6cm, height = 5cm]{Kurva_Kompleksitas_Waktu.png}
-    \centering
-    \caption{Kurva perbandingan kompleksitas waktu suatu algoritma}
+   \includegraphics[width = 6cm, height = 5cm]{Kurva_Kompleksitas_Waktu.png}
+   \centering
+   \caption{Kurva perbandingan kompleksitas waktu suatu algoritma}
 \end{figure}
 
 \section{Metodologi Penelitian}
@@ -167,6 +170,18 @@ ini metodologi
 \section{Implementasi dan Pengujian}
 
 \subsection{Implementasi Naive Algorithm pada Bahasa C}
+Untuk mengimplementasikan \textit{Naive algorithm} pada C, diperlukan beberapa prosedur, yaitu : Deklarasi Matriks, pengisian nilai matriks, pencetakan matriks sebelum dikalikan, perkalian matriks, serta pencetakan matriks hasil perkalian. 
+
+\subsubsection{Deklarasi Matriks}
+Deklarasi matriks merupakan sebuah prosedur di mana user bisa memilih ukuran dari matriks yang ingin dikalikan. Lalu karena ukurannya yang belum pasti serta range ukuran matriks yang bisa menjadi sangat besar, maka digunakan \textit{dynamic memory}.
+\subsubsection{Pengisian nilai matriks}
+Prosedur ini akan mengisi nilai matriks yang sebelumnya telah kita deklarasikan ukurannya dengan menggunakan fungsi random, di mana program akan mengisi setiap \textit{cell} pada matriks dengan nilai random yang berkisar di range 0-9.
+\subsubsection{Cetak Matriks Sebelum Dikalikan}
+Prosedur ini fungsinya sebenarnya hanya untuk pengecekan manual perkalian matriks. Prosedur ini akan mencetak nilai-nilai dari kedua matriks yang sebelumnya telah diisi secara random oleh program.
+\subsubsection{Perkalian Matriks}
+Prosedur ini akan mencari nilai dari perkalian dua matriks yang memiliki ukuran yang sama ($n\times n$) dengan menggunakan metode \textit{Naive algorithm}.
+\subsubsection{Cetak Matriks Hasil Perkalian}
+Prosedur ini akan mencetak hasil perkalian dua matriks yang sebelumnya telah dikalikan pada prosedur perkalian matriks.
 
 \subsection{Implementasi Strassen Algorithm pada Bahasa C}
 
