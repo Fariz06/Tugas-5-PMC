@@ -2,7 +2,6 @@
 \IEEEoverridecommandlockouts
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
 \usepackage[ruled]{algorithm2e}
 \usepackage{graphicx}
 \usepackage{textcomp}
@@ -17,11 +16,11 @@
 
 \title{Perkalian Matriks dengan Beberapa Algoritma}
 
-\author{\IEEEauthorblockN{Surya Dharma*, Fariz Iftikhar Falakh†, Senggani Fatah Sedayu§}
+\author{\IEEEauthorblockN{Adro Anra Purnama\textsuperscript{¶}, Surya Dharma\textsuperscript{*}, Fariz Iftikhar Falakh\textsuperscript{†}, Senggani Fatah Sedayu\textsuperscript{§}}
 \IEEEauthorblockA{\textit{School of Electrical Engineering and Informatics} \\
 \textit{Institut Teknologi Bandung}\\
 Bandung, Indonesia\\
-\{*13220027, †13220029, §13220035\}@std.stei.itb.ac.id}
+\{\textsuperscript{¶}13220005, \textsuperscript{*}13220027, \textsuperscript{†}13220029, \textsuperscript{§}13220035\}@std.stei.itb.ac.id}
 }
 
 \maketitle
@@ -41,17 +40,19 @@ matriks, \textit{Naive algorithm}, algoritma Strassen, algoritma Cannon
 Perkalian matriks merupakan suatu operasi biner dengan operan dua buah matriks yang menghasilkan sebuah matriks.
 Perkalian matriks memiliki peran penting dalam dunia matematika serta memiliki jangkauan aplikasi yang sangat luas, misalnya \textit{signal processing}).
 Karena banyaknya kegunaan operasi ini, matematikawan mencoba untuk mencari metode perkalian matriks yang lebih memakan sedikit waktu.
-Dari usaha tersebut, banyak metode yang dikembangkan agar perkalian matriks---terutama untuk matriks dengan ukuran besar---menjadi lebih efisien.
+Dari usaha tersebut, banyak metode dan algoritma yang dikembangkan agar perkalian matriks---terutama untuk matriks dengan ukuran besar---menjadi lebih efisien.
 
 Algoritma-algoritma yang digunakan oleh penulis adalah \textit{Naive algorithm}, algoritma Strassen, dan algoritma Cannon.
-Ketiga algoritma tersebut akan diimplementasikan dalam bahasa pemrograman C.
-Penulis akan membandingkan seberapa cepat suatu algoritma menyelesaikan hasil perkalian 2 buah matriks dengan algoritma lain.
+Ketiga algoritma tersebut akan diimplementasikan dalam bahasa pemrograman C berdasarkan pseudocode.
+Penulis akan membandingkan seberapa cepat suatu algoritma menyelesaikan hasil perkalian 2 buah matriks dengan algoritma lain dengan menganalisis kompleksitas waktu algoritma tersebut.
 
 \section{Studi Pustaka}
 \subsection{Naive Algorithm}
-Naive algorithm seperti namanya, merupakan sebuah algoritma yang sangat polos di mana pada algoritma ini kita akan mengkalkulasikan setiap \textit{entry} menjadi sebuah \textit{sum of product}. Karena hal inilah \textit{Naive Algorithm} memiliki lebih banyak perhitungan dibandingkan algoritma-algoritma perkalian matriks lainnya. Pada algoritma, untuk sebuah matriks $n\times n$ yang dikalikan dengan matriks berukuran $n\times n$ lainnya, algoritma ini membutuhkan $n^3$ perhitungan, sehingga time complexity dari algoritma ini adalah \textit{O($n^3$)}.
+Naive algorithm seperti namanya, merupakan sebuah algoritma yang sangat polos di mana pada algoritma ini kita akan mengalkulasikan setiap \textit{entry} menjadi sebuah \textit{sum of product}. 
+Karena hal inilah \textit{Naive Algorithm} memiliki lebih banyak perhitungan dibandingkan algoritma-algoritma perkalian matriks lainnya. 
+Pada algoritma, untuk sebuah matriks $n\times n$ yang dikalikan dengan matriks berukuran $n\times n$ lainnya, algoritma ini membutuhkan $n^3$ perhitungan, 
+sehingga time complexity dari algoritma ini adalah \textit{O($n^3$)}.
 
-\subsubsection{Source Code Naive Algorithm}
 \begin{algorithm}
     \caption{Naive Algorithm}
     \KwIn{Matriks A, matriks B ukuran $n \times n$}
@@ -67,37 +68,17 @@ Naive algorithm seperti namanya, merupakan sebuah algoritma yang sangat polos di
     }
 \end{algorithm}
 
+
 \subsection{Strassen Algorithm}
 Algoritma Strassen merupakan algoritma untuk mencari hasil perkalian yang lebih cepat dibanding dengan Algoritma naive.
-Algoritma Naive melakukan perhitungan perkalian matriks biasa yang memerlukan $n^3$ perhitungan, sedangkan untuk Algoritma Strassen memerlukan $n^(2.81)$ perhitungan. 
+Algoritma Naive melakukan perhitungan perkalian matriks biasa yang memerlukan $n^3$ perhitungan, sedangkan untuk Algoritma Strassen memerlukan $n^{2.81}$ perhitungan. 
 Berkurangnya banyak perhitungan disebabkan oleh penggunaan pengurangan dan penjumlahan pada perhitungan sebelumnya untuk mendapat nilai baru.
 Karena proses pengurangan dan penjumlahan lebih ringan dibanding dengan perkalian, maka time complexity dari algoritma menurun.
 
-\subsubsection{Source Code Strassen Algorithm}
-\begin{algorithm}
-    \caption{KaliStrassen(A, B : matriks, n : \textbf{integer})}
-	\KwIn{Matriks A, matriks B, dan ukuran matriks}
-	\KwOut{Hasil perkalian A dan B}
-    \KwSty{Algorithm}\\
-	\eIf{n = 1}{
-        \textbf{return} A $\ast$ B
-    }{
-        Bagi A menjadi A11, A12, A21, dan A22 dengan ukuran $n/2 \times n/2$\\
-        Bagi B menjadi B11, B12, B21, dan B22 dengan ukuran $n/2 \times n/2$\\
-        M1 $\leftarrow$ KaliStrassen(A12 - A22, B21 + B22, $n/2$)\\
-        M2 $\leftarrow$ KaliStrassen(A11 + A22, B11 + B22, $n/2$)\\
-        M3 $\leftarrow$ KaliStrassen(A11 - A21, B11 + B12, $n/2$)\\
-        M4 $\leftarrow$ KaliStrassen(A11 + A12, B22, $n/2$)\\
-        M5 $\leftarrow$ KaliStrassen(A11, B12 - B22, $n/2$)\\
-        M6 $\leftarrow$ KaliStrassen(A22, B21 - B11, $n/2$)\\
-        M7 $\leftarrow$ KaliStrassen(A21 + A22, B11, $n/2$)\\
-        C11 $\leftarrow$ M1 + M2- M4 + M6\\
-        C12 $\leftarrow$ M4 + M5\\
-        C21 $\leftarrow$ M6 + M7\\
-        C22 $\leftarrow$ M2 - M3 + M5 - M7\\
-        \textbf{return} C \{C gabungan C11, C12, C21, dan C22\}
-    }
-\end{algorithm}
+\begin{figure}[h]
+    \includegraphics[width = 8.7cm, height = 6cm]{Pseudocode_Algoritma_Strassen.png}
+    \centering
+ \end{figure}
 
 \subsection{Cannon Algorithm}
 Dalam \textit{computer science}, algoritma Cannon adalah algoritma terdistribusi (dirancang untuk dilakukan pada \textit{hardware} komputer yang terdiri dari berbagai prosesor)
@@ -109,7 +90,6 @@ Misalnya digunakan kasus geser sirkular kiri dan \textit{bit shiifting} ke kiri.
 Perbedaannya adalah dengan \textit{bit shiifting}, elemen paling kiri akan hilang, 
 sementara dengan geser sirkular kiri, elemen paling kiri akan dipindahkan ke paling kanan.
 
-\subsubsection{Source Code Cannon Algorithm}
 \begin{algorithm}
     \caption{Algoritma Cannon}
     \KwResult{Hasil perkalian matriks A berukuran n*n dan matriks B berukuran n*n}
@@ -155,7 +135,7 @@ Misal terdapat sebuah fungsi $T(n) = n^2 + n + 1$.
 Karena $n^2$ tumbuh lebih cepat dibandingkan dengan $n$ dan 1 untuk input n yang makin besar, 
 maka notasi \textit{Big O} dari $T(n)$ adalah $O(n^2)$.
 Cara lain untuk menentukan \textit{Big O} dari $T(n)$ adalah dengan menggunakan definisi notasi \textit{Big O}.
-Pilih $f(n) = N^2$, $c = 2$, dan $N_0 = 2$, maka $T(n)$ akan selalu lebih kecil dari $c \cdot f(n)$ untuk semua $n \ge N_0$ 
+Pilih $f(n) = n^2$, $c = 2$, dan $N_0 = 2$, maka $T(n)$ akan selalu lebih kecil dari $c \cdot f(n)$ untuk semua $n \ge N_0$ 
 sehingga diperoleh notasi \textit{Big O} dari $T(n)$ yaitu $O(n^2)$.
 
 \begin{figure}[h]
@@ -165,27 +145,37 @@ sehingga diperoleh notasi \textit{Big O} dari $T(n)$ yaitu $O(n^2)$.
 \end{figure}
 
 \section{Metodologi Penelitian}
-ini metodologi
+Proses penelitian ini terdiri dari 3 tahap.
+Pertama, dilakukan studi literatur dengan mencari dan membaca referensi yang berkaitan.
+Setelah melakukan studi literatur, dilakukan implementasi algoritma dalam bahasa pemrograman C.
+Implementasi akan direvisi berulang kali sampai hasil yang diinginkan sesuai dengan algoritma.
+Tahap terakhir dari penelitian adalah pemaparan kode yang telah dibuat dan berhasil dijalankan ke dalam laporan.
+
+Perlu gambar proses metodologi?
 
 \section{Implementasi dan Pengujian}
 
-\subsection{Implementasi Naive Algorithm pada Bahasa C}
-Untuk mengimplementasikan \textit{Naive algorithm} pada C, diperlukan beberapa prosedur, yaitu : Deklarasi Matriks, pengisian nilai matriks, pencetakan matriks sebelum dikalikan, perkalian matriks, serta pencetakan matriks hasil perkalian. 
+\subsection{Implementasi Naive Algorithm dalam Bahasa C}
+Untuk mengimplementasikan \textit{Naive algorithm} pada bahasa pemrograman C, diperlukan beberapa prosedur, yaitu : 
+deklarasi matriks, pengisian nilai matriks, pencetakan matriks sebelum dikalikan, perkalian matriks, serta pencetakan matriks hasil perkalian. 
 
 \subsubsection{Deklarasi Matriks}
-Deklarasi matriks merupakan sebuah prosedur di mana user bisa memilih ukuran dari matriks yang ingin dikalikan. Lalu karena ukurannya yang belum pasti serta range ukuran matriks yang bisa menjadi sangat besar, maka digunakan \textit{dynamic memory}.
+Deklarasi matriks merupakan sebuah prosedur di mana user bisa memilih ukuran dari matriks yang ingin dikalikan. 
+Lalu karena ukurannya yang belum pasti serta range ukuran matriks yang bisa menjadi sangat besar, maka digunakan \textit{dynamic memory}.
 \subsubsection{Pengisian nilai matriks}
-Prosedur ini akan mengisi nilai matriks yang sebelumnya telah kita deklarasikan ukurannya dengan menggunakan fungsi random, di mana program akan mengisi setiap \textit{cell} pada matriks dengan nilai random yang berkisar di range 0-9.
+Prosedur ini akan mengisi nilai matriks yang sebelumnya telah kita deklarasikan ukurannya dengan menggunakan fungsi random, 
+di mana program akan mengisi setiap \textit{cell} pada matriks dengan nilai random yang berkisar di range 0-9.
 \subsubsection{Cetak Matriks Sebelum Dikalikan}
-Prosedur ini fungsinya sebenarnya hanya untuk pengecekan manual perkalian matriks. Prosedur ini akan mencetak nilai-nilai dari kedua matriks yang sebelumnya telah diisi secara random oleh program.
+Fungsi dari prosedur ini sebenarnya hanya untuk pengecekan manual perkalian matriks. 
+Prosedur ini akan mencetak nilai-nilai dari kedua matriks yang sebelumnya telah diisi secara random oleh program.
 \subsubsection{Perkalian Matriks}
 Prosedur ini akan mencari nilai dari perkalian dua matriks yang memiliki ukuran yang sama ($n\times n$) dengan menggunakan metode \textit{Naive algorithm}.
 \subsubsection{Cetak Matriks Hasil Perkalian}
 Prosedur ini akan mencetak hasil perkalian dua matriks yang sebelumnya telah dikalikan pada prosedur perkalian matriks.
 
-\subsection{Implementasi Strassen Algorithm pada Bahasa C}
+\subsection{Implementasi Strassen Algorithm dalam Bahasa C}
 
-\subsection{Implementasi Cannon Algorithm pada Bahasa C}
+\subsection{Implementasi Cannon Algorithm dalam Bahasa C}
 Ada 7 prosedur yang digunakan untuk mengimplementasikan algoritma Cannon, 1 untuk inisialisasi matriks, 1 untuk mencetak isi matriks (untuk keperluan \textit{debugging}), 
 4 untuk memodifikasi elemen matriks, dan 1 untuk mengisi matriks hasil.
 Inisialisasi matriks pada dasarnya mengisi 2 matriks dengan nilai dalam rentang 0 - 9.
@@ -196,12 +186,15 @@ Prosedur yang digunakan untuk memodifikasi elemen matriks adalah geser sirkular 
 Geser sirkular kiri baris diimplementasikan dengan menyimpan elemen pertama array (misalnya di variabel $temp$), lalu dilakukan \textit{looping} untuk menukar elemen array.
 Setelah itu, elemen array paling terakhir akan disubstitusikan dengan nilai dari $temp$.
 Geser sirkular atas kolom diimplementasikan dengan cara yang mirip, hanya berbeda pada parameter fungsi dan pengaksesan array saja.
+
 Geser sirkular kiri matriks diimplementasikan dengan menyimpan elemen kolom 0 (misalnya di array $arr\_temp$), lalu dilakukan \textit{looping} untuk menukar elemen setiap baris.
 Setelah itu, kolom terakhir matriks akan diisi oleh array $arr\_temp$ sesuai indeksnya.
 Geser sirkular atas matriks diimplementasikan dengan cara yang mirip, 
 perbedaannya adalah geser sirkular kiri menyimpan elemen kolom 0, sedangkan geser sirkular atas menyimpan elemen baris 0.
-Implementasi algoritma ini dalam bahasa pemrograman C dapat dilihat di
-\href{https://github.com/Fariz06/Tugas-5-PMC}{sini}.
+
+\subsection{Source Code Program}
+Implementasi ketiga algoritma ini dalam bahasa pemrograman C dapat dilihat di
+\href{https://github.com/Fariz06/Tugas-5-PMC}{github.com/Fariz06/Tugas-5-PMC}.
 
 \section{Kesimpulan}
 Kesimpulannya pusing tujuh keliling

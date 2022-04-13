@@ -134,8 +134,8 @@ int main()
 
     fill_matrix(N, mat_A, mat_B);
 
+    // Algoritma Cannon
     start = clock();
-
     // Inisialisasi posisi
     for(i = 0; i < N - 1; ++i){
         shift_left_array(mat_A[i + 1], N, i + 1);
@@ -149,8 +149,10 @@ int main()
         sum_mat(mat_A, mat_B, mat_C, N);
     }
     end = clock();
+
+    // Perhitungan lama algoritma Cannon
     dura = (double)(end - start)/CLOCKS_PER_SEC;
-    printf("%lf\n",dura);
+    printf("Lama proses : %lf s\n",dura);
 
     for(i = 0; i < N; ++i){
         free(mat_A[i]);

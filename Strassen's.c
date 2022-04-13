@@ -117,7 +117,7 @@ void print_mat(int **mat, int dim)      // dim = dimensi dari matriks hasil gabu
 {
     for(int i = 0; i < dim; ++i){
         for(int j = 0; j < dim; ++j){
-            printf("%d ", mat[i][j]);
+            printf("%d      ", mat[i][j]);
         }
         printf("\n");
     }
@@ -225,29 +225,12 @@ int main()
     fill_matrix(N, new_size, A, B);
     start = clock();
     C = Strassen(A, B, new_size);
-    for(i=0;i<N;i++){
-        for(j=0;j<N;j++){
-            printf("%d      ", A[i][j]);
-        }
-        printf("\n");
-    }
-        printf("\n");
-    for(i=0;i<N;i++){
-        for(j=0;j<N;j++){
-            printf("%d      ", B[i][j]);
-        }
-        printf("\n");
-    }
-        printf("\n");
-    for(i=0;i<N;i++){
-        for(j=0;j<N;j++){
-            printf("%d      ", C[i][j]);
-        }
-        printf("\n");
-    }
     end = clock();
+    print_mat(A, N);
+    print_mat(B, N);
+    print_mat(C, N);
     dura = (double)(end - start)/CLOCKS_PER_SEC;
-    printf("%lf\n", dura);
+    printf("Lama proses : %lf s\n", dura);
 
     for(int i = 0; i < new_size; ++i){
         free(A[i]);

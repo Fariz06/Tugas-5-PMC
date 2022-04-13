@@ -5,6 +5,9 @@
 int main(){
     int baris, kolom;
     time_t t;
+    clock_t start, end;
+    double duration;
+
     printf("Masukkan baris matriks : \n");
     scanf("%d", &baris);
     printf("Masukkan kolom matriks : \n");
@@ -19,10 +22,11 @@ int main(){
         matrix3[i] = (int*)calloc(baris, sizeof(int));
     }
 
-    // Mengisi matriks 1 dengan nilai random, dengan range 0-5
+    // Mengisi matriks 1 dan matriks 2 dengan nilai random, dengan range 0-5
     for (int i = 0; i < baris; i++) {
         for (int j = 0; j < kolom; j++) {
             matrix1[i][j] = rand() % 5;
+            matrix2[i][j] = rand() % 5;
         }
     }
 
@@ -36,15 +40,8 @@ int main(){
     }
     printf("=============================\n");
 
-    // Mengisi matriks 1 dengan nilai random, dengan range 0-5
-    for (int i = 0; i < baris; i++) {
-        for (int j = 0; j < kolom; j++) {
-            matrix2[i][j] = rand() % 5;
-        }
-    }
+    // Menampilkan isi dari matriks 2 untuk pengecekan manual hasil perkalian
     printf("Isi dari matriks 2 adalah : \n");
-    // Menampilkan isi dari matriks 1 untuk pengecekan manual hasil perkalian
-
     for (int i = 0; i < baris; i++){
         for (int j = 0; j < kolom; j++){
             printf("%d ", matrix2[i][j]);
@@ -55,6 +52,7 @@ int main(){
 
 
     // Algoritma perkalian matriks menggunakan naive / iterative algorithm
+    start = clock();
     for (int i = 0; i < baris; i++){
         for (int j = 0; j < kolom; j++){
             matrix3[i][j] = 0;
@@ -63,6 +61,10 @@ int main(){
             }
         }
     }
+    end = clock();
+
+    // Perhitungan lama algoritma
+    duration = (double)(end - start)/CLOCKS_PER_SEC;
 
     // Menampilkan matriks hasil perkalian matriks 1 dan matriks 2
     printf("Hasil kali matriks 1 dan matriks 2 adalah \n");
@@ -73,6 +75,7 @@ int main(){
         printf("\n");
     }
 
+    printf("Lama proses : %lf\n", duration);
 
     // Membebaskan memory yang digunakan
     free(matrix1);
