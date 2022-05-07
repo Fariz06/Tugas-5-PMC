@@ -78,11 +78,12 @@ Karena proses pengurangan dan penjumlahan lebih ringan dibanding dengan perkalia
 \begin{figure}[h]
     \includegraphics[width = 8.7cm, height = 6cm]{Pseudocode_Algoritma_Strassen.png}
     \centering
+    \caption{\textit{Pseudocode} algoritma Strassen}
  \end{figure}
 
 \subsection{Cannon Algorithm}
 Dalam \textit{computer science}, algoritma Cannon adalah algoritma terdistribusi (dirancang untuk dilakukan pada \textit{hardware} komputer yang terdiri dari berbagai prosesor)
-untuk perkalian matriks untuk mesh (jaringan yang terbentuk dari sel dan titik) 2 dimensi.
+untuk perkalian matriks dan mesh (jaringan yang terbentuk dari sel dan titik) 2 dimensi.
 Algoritma ini cocok digunakan untuk mesh N*N (atau matriks N*N) dan tidak cocok digunakan untuk matriks bukan persegi.
 Modifikasi matriks dengan algoritma Cannon berhubungan dengan geser sirkular (\textit{circular shift}).
 Geser sirkular adalah operasi menggeser elemen-elemen array (atau matriks), mirip seperti \textit{bit shifting}.
@@ -192,6 +193,14 @@ Setelah itu, kolom terakhir matriks akan diisi oleh array $arr\_temp$ sesuai ind
 Geser sirkular atas matriks diimplementasikan dengan cara yang mirip, 
 perbedaannya adalah geser sirkular kiri menyimpan elemen kolom 0, sedangkan geser sirkular atas menyimpan elemen baris 0.
 
+Kompleksitas waktu dari implementasi program algoritma Cannon adalah $O(n^3)$, 
+sedangkan kompleksitas ruangnya adalah $O(n^2)$.
+Pengujian menunjukkan bahwa algoritma Cannon tidak lebih cepat dan efisien dari \textit{Naive algorithm}.
+Hal ini disebabkan oleh pengimplementasian algoritma Cannon yang kurang sesuai.
+Algoritma Cannon dibuat untuk digunakan sebagai algoritma terdistribusi (dilakukan pada komputer yang terdiri dari berbagai prosesor).
+Dengan mengimplementasikan algoritma Cannon secara paralel dan mengatur beberapa faktor seperti jumlah prosesor yang digunakan, algoritma Cannon dapat menjadi lebih efisien dari \textit{Naive algorithm}.
+
+
 \subsection{Source Code Program}
 Implementasi ketiga algoritma ini dalam bahasa pemrograman C dapat dilihat di
 \href{https://github.com/Fariz06/Tugas-5-PMC}{github.com/Fariz06/Tugas-5-PMC}.
@@ -205,8 +214,8 @@ Kesimpulannya pusing tujuh keliling
 \bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
 \bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
 \bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+\bibitem{b6} K. Srikanth, ``Cannon's algorithm for distributed matrix multiplication,`` OpenGenus IQ, 13-Oct-2018. [Online]. Available: \href{https://iq.opengenus.org/cannon-algorithm-distributed-matrix-multiplication/}{https://iq.opengenus.org/cannon-algorithm-distributed-matrix-multiplication/}. [Accessed: 07-May-2022] 
+\bibitem{b7} A. Gupta and V. Kumar, ``Scalability of Parallel Algorithms for Matrix Multiplication,`` 1993 International Conference on Parallel Processing - ICPP'93, 1993, pp. 115-123, doi: 10.1109/ICPP.1993.160.
 \end{thebibliography}
 
 \end{document}
