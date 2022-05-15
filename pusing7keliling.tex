@@ -152,7 +152,6 @@ Setelah melakukan studi literatur, dilakukan implementasi algoritma dalam bahasa
 Implementasi akan direvisi berulang kali sampai hasil yang diinginkan sesuai dengan algoritma.
 Tahap terakhir dari penelitian adalah pemaparan kode yang telah dibuat dan berhasil dijalankan ke dalam laporan.
 
-Perlu gambar proses metodologi?
 
 \section{Implementasi dan Pengujian}
 
@@ -175,6 +174,25 @@ Prosedur ini akan mencari nilai dari perkalian dua matriks yang memiliki ukuran 
 Prosedur ini akan mencetak hasil perkalian dua matriks yang sebelumnya telah dikalikan pada prosedur perkalian matriks.
 
 \subsection{Implementasi Strassen Algorithm dalam Bahasa C}
+Dalam implementasinya \textit{Strassen Algorithm} membutuhkan 8 fungsi yaitu:
+
+\subsubsection{Find closest Exponent} Mencari kelipatan pangkat dua yang terdekat dengan dimensi matriks. Hal ini dilakukan karena algoritma strassen melakukan
+perhitungannya dengan membaginya menjadi submatriks dengan kelipatan 2. Apabila ukuran matriks bukan kelipatan dua maka nilai dari matriks yang kosong akan diisi dengan
+angka 0.
+
+\subsubsection{Fill Matrix} Mengisi matriks dengan nilai random dengan range 0-9.
+
+\subsubsection{Matrix sum} Fungsi ini akan mengembalikan hasil penjumlahan dari dua matriks.
+
+\subsubsection{Substract Matrix} Fungsi ini akan mengembalikan hasil pengurangan dari dua matriks.
+
+\subsubsection{Extract Matriks} Algoritma \textit{Strassen} membagi masing-masing matriks yang akan dikalikan menjadi empat submatriks.
+
+\subsubsection{Print Matrix} Prosedur ini akan mencetak hasil perkalian matriks.
+
+\subsubsection{Free Struct} Prosedut ini akan membebaskan memori yang digunakan untuk menyimpan matriks yang digunakan agar tidak terjadi \textit{memory leak}.
+
+\subsubsection{Strassen} Fungsi ini adalah fungsi utama yang menggabungkan semua fungsi dan prosedur yang sudah dideklar untuk menjalankan \textit{Strassen Algorithm}.
 
 \subsection{Implementasi Cannon Algorithm dalam Bahasa C}
 Ada 7 prosedur yang digunakan untuk mengimplementasikan algoritma Cannon, 1 untuk inisialisasi matriks, 1 untuk mencetak isi matriks (untuk keperluan \textit{debugging}), 
