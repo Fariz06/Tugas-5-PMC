@@ -173,6 +173,21 @@ Prosedur ini akan mencari nilai dari perkalian dua matriks yang memiliki ukuran 
 \subsubsection{Cetak Matriks Hasil Perkalian}
 Prosedur ini akan mencetak hasil perkalian dua matriks yang sebelumnya telah dikalikan pada prosedur perkalian matriks.
 
+\subsection{Pengujian Naive Algoirthm}
+Dengan menggunakan timer internal pada kode yang menghitung berapa lama algoritma ini dapat menyelesaikan perkalian suatu matriks, didapat hasil sebagai berikut
+
+\begin{figure}[h]
+   \includegraphics[width = 6cm, height = 4cm]{Uji_Naive Algorithm_1k.png}
+   \centering
+   \caption{Hasil pengujian perkalian matriks $1.000\times1.000$}
+\end{figure}
+
+\begin{figure}[h]
+   \includegraphics[width = 6cm, height = 4cm]{Uji_Naive Algorithm_10k.png}
+   \centering
+   \caption{Hasil pengujian perkalian matriks $10.000\times10.000$}
+\end{figure}
+
 \subsection{Implementasi Strassen Algorithm dalam Bahasa C}
 Dalam implementasinya \textit{Strassen Algorithm} membutuhkan 8 fungsi yaitu:
 
@@ -193,6 +208,9 @@ angka 0.
 \subsubsection{Free Struct} Prosedut ini akan membebaskan memori yang digunakan untuk menyimpan matriks yang digunakan agar tidak terjadi \textit{memory leak}.
 
 \subsubsection{Strassen} Fungsi ini adalah fungsi utama yang menggabungkan semua fungsi dan prosedur yang sudah dideklar untuk menjalankan \textit{Strassen Algorithm}.
+
+\subsection{Pengujian Strassen Algoirthm}
+test
 
 \subsection{Implementasi Cannon Algorithm dalam Bahasa C}
 Ada 7 prosedur yang digunakan untuk mengimplementasikan algoritma Cannon, 1 untuk inisialisasi matriks, 1 untuk mencetak isi matriks (untuk keperluan \textit{debugging}), 
@@ -217,6 +235,9 @@ Pengujian menunjukkan bahwa algoritma Cannon tidak lebih cepat dan efisien dari 
 Hal ini disebabkan oleh pengimplementasian algoritma Cannon yang kurang sesuai.
 Algoritma Cannon dibuat untuk digunakan sebagai algoritma terdistribusi (dilakukan pada komputer yang terdiri dari berbagai prosesor).
 Dengan mengimplementasikan algoritma Cannon secara paralel dan mengatur beberapa faktor seperti jumlah prosesor yang digunakan, algoritma Cannon dapat menjadi lebih efisien dari \textit{Naive algorithm}.
+
+\subsection{Pengujian Cannon Algoirthm}
+test
 
 
 \subsection{Source Code Program}
