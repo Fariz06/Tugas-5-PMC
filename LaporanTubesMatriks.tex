@@ -84,7 +84,7 @@ Karena proses pengurangan dan penjumlahan lebih ringan dibanding dengan perkalia
 \subsection{Cannon Algorithm}
 Dalam \textit{computer science}, algoritma Cannon adalah algoritma terdistribusi (dirancang untuk dilakukan pada \textit{hardware} komputer yang terdiri dari berbagai prosesor)
 untuk perkalian matriks dan mesh (jaringan yang terbentuk dari sel dan titik) 2 dimensi.
-Algoritma ini cocok digunakan untuk mesh N*N (atau matriks N*N) dan tidak cocok digunakan untuk matriks bukan persegi.
+Algoritma ini cocok digunakan untuk mesh N*N (atau matriks N*N) dan tidak cocok digunakan untuk matriks bukan persegi \cite{b1}.
 Modifikasi matriks dengan algoritma Cannon berhubungan dengan geser sirkular (\textit{circular shift}).
 Geser sirkular adalah operasi menggeser elemen-elemen array (atau matriks), mirip seperti \textit{bit shifting}.
 Misalnya digunakan kasus geser sirkular kiri dan \textit{bit shiifting} ke kiri.
@@ -210,8 +210,6 @@ angka 0.
 
 \subsubsection{Strassen} Fungsi ini adalah fungsi utama yang menggabungkan semua fungsi dan prosedur yang sudah dideklar untuk menjalankan \textit{Strassen Algorithm}.
 
-\subsection{Pengujian Strassen Algoirthm}
-test
 
 \subsection{Implementasi Cannon Algorithm dalam Bahasa C}
 Ada 7 prosedur yang digunakan untuk mengimplementasikan algoritma Cannon, 1 untuk inisialisasi matriks, 1 untuk mencetak isi matriks (untuk keperluan \textit{debugging}), 
@@ -235,9 +233,9 @@ sedangkan kompleksitas ruangnya adalah $O(n^2)$.
 Pengujian menunjukkan bahwa algoritma Cannon tidak lebih cepat dan efisien dari \textit{Naive algorithm}.
 Hal ini disebabkan oleh pengimplementasian algoritma Cannon yang kurang sesuai.
 Algoritma Cannon dibuat untuk digunakan sebagai algoritma terdistribusi (dilakukan pada komputer yang terdiri dari berbagai prosesor).
-Dengan mengimplementasikan algoritma Cannon secara paralel dan mengatur beberapa faktor seperti jumlah prosesor yang digunakan, algoritma Cannon dapat menjadi lebih efisien dari \textit{Naive algorithm}.
+Dengan mengimplementasikan algoritma Cannon secara paralel dan mengatur beberapa faktor seperti jumlah prosesor yang digunakan, algoritma Cannon dapat menjadi lebih efisien dari \textit{Naive algorithm} \cite{b2}.
 
-\subsection{Pengujian Cannon Algoirthm}
+\subsection{Pengujian Cannon Algorithm}
 
 \begin{figure}[h]
     \includegraphics[width = 8cm, height = 4cm]{Cannon_1000.png}
@@ -264,13 +262,8 @@ Ditinjau dari pseudocode, algoritma Strassen lebih cepat dari \textit{Naive Algo
 jika algoritma Cannon diimplementasikan secara paralel.
 
 \begin{thebibliography}{00}
-\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} K. Srikanth, ``Cannon's algorithm for distributed matrix multiplication,`` OpenGenus IQ, 13-Oct-2018. [Online]. Available: \href{https://iq.opengenus.org/cannon-algorithm-distributed-matrix-multiplication/}{https://iq.opengenus.org/cannon-algorithm-distributed-matrix-multiplication/}. [Accessed: 07-May-2022] 
-\bibitem{b7} A. Gupta and V. Kumar, ``Scalability of Parallel Algorithms for Matrix Multiplication,`` 1993 International Conference on Parallel Processing - ICPP'93, 1993, pp. 115-123, doi: 10.1109/ICPP.1993.160.
+\bibitem{b1} K. Srikanth, ``Cannon's algorithm for distributed matrix multiplication,`` OpenGenus IQ, 13-Oct-2018. [Online]. Available: \href{https://iq.opengenus.org/cannon-algorithm-distributed-matrix-multiplication/}{https://iq.opengenus.org/cannon-algorithm-distributed-matrix-multiplication/}. [Accessed: 07-May-2022] 
+\bibitem{b2} A. Gupta and V. Kumar, ``Scalability of Parallel Algorithms for Matrix Multiplication,`` 1993 International Conference on Parallel Processing - ICPP'93, 1993, pp. 115-123, doi: 10.1109/ICPP.1993.160.
 \end{thebibliography}
 
 \end{document}
