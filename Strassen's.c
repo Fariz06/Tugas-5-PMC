@@ -114,17 +114,6 @@ extracted_matrix extract_mat(int **matrix1, int **matrix2, int dim)
     return submat_temp;
 }
 
-// Mencetak isi matriks
-void print_mat(int **mat, int dim)      // dim = dimensi dari matriks hasil gabungan submatriks
-{
-    for(int i = 0; i < dim; ++i){
-        for(int j = 0; j < dim; ++j){
-            printf("%d      ", mat[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
 
 // Membebaskan memori alokasi isi struct extracted_matrix
 void free_struct(extracted_matrix submat, int dim)
@@ -168,14 +157,14 @@ int** Strassen(int **mat1, int **mat2, int dim, int *count)
         extracted_matrix submat;
         submat = extract_mat(mat1, mat2, dim);
         M1 = Strassen(subtract_mat(submat.A12, submat.A22, dim / 2,count), sum_mat(submat.B21, submat.B22, dim / 2,count), dim / 2, count);
-        M2 = Strassen(sum_mat(submat.A11, submat.A22, dim / 2,&count), sum_mat(submat.B11, submat.B22, dim / 2,&count), dim / 2, count);
+        M2 = Strassen(sum_mat(submat.A11, submat.A22, dim / 2,count), sum_mat(submat.B11, submat.B22, dim / 2,count), dim / 2, count);
         M3 = Strassen(subtract_mat(submat.A11, submat.A21, dim / 2,count), sum_mat(submat.B11, submat.B12, dim / 2,count), dim / 2, count);
         M4 = Strassen(sum_mat(submat.A11, submat.A12, dim / 2,count), submat.B22, dim / 2, count);
         M5 = Strassen(submat.A11, subtract_mat(submat.B12, submat.B22, dim / 2,count), dim / 2, count);
         M6 = Strassen(submat.A22, subtract_mat(submat.B21, submat.B11, dim / 2,count), dim / 2, count);
         M7 = Strassen(sum_mat(submat.A21, submat.A22, dim / 2,count), submat.B11, dim / 2, count);
 
-        C11 = subtract_mat(sum_mat(sum_mat(M1, M2, dim / 2, count), M6, dim / 2, &count), M4, dim / 2,count);
+        C11 = subtract_mat(sum_mat(sum_mat(M1, M2, dim / 2, count), M6, dim / 2, count), M4, dim / 2,count);
         C12 = sum_mat(M4, M5, dim / 2,count);
         C21 = sum_mat(M6, M7, dim / 2,count);
         C22 = subtract_mat(subtract_mat(sum_mat(M2, M5, dim / 2,count), M3, dim / 2, count), M7, dim / 2, count);
@@ -186,7 +175,6 @@ int** Strassen(int **mat1, int **mat2, int dim, int *count)
                 C[i][j + (dim / 2)] = C12[i][j];
                 C[i + (dim / 2)][j] = C21[i][j];
                 C[i + (dim / 2)][j + (dim / 2)] = C22[i][j];
-                *count += 4;
             }
         }
 
@@ -230,9 +218,6 @@ int main()
     start = clock();
     C = Strassen(A, B, new_size, &count);
     end = clock();
-    print_mat(A, N);
-    print_mat(B, N);
-    print_mat(C, N);
     dura = (double)(end - start)/CLOCKS_PER_SEC;
     printf("Lama proses : %lf s\n", dura);
     printf("N = %d", count);
