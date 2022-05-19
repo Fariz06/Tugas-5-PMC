@@ -174,7 +174,8 @@ Prosedur ini akan mencari nilai dari perkalian dua matriks yang memiliki ukuran 
 Prosedur ini akan mencetak hasil perkalian dua matriks yang sebelumnya telah dikalikan pada prosedur perkalian matriks.
 
 \subsection{Pengujian Naive Algoirthm}
-Dengan menggunakan timer internal pada kode yang menghitung berapa lama algoritma ini dapat menyelesaikan perkalian suatu matriks, didapat hasil sebagai berikut
+Dengan menggunakan timer internal pada kode yang menghitung berapa lama algoritma ini dapat menyelesaikan perkalian suatu matriks, 
+didapat hasil sebagai berikut
 
 \begin{figure}[h]
    \includegraphics[width = 6cm, height = 4cm]{Uji_Naive Algorithm_1k.png}
@@ -237,7 +238,18 @@ Algoritma Cannon dibuat untuk digunakan sebagai algoritma terdistribusi (dilakuk
 Dengan mengimplementasikan algoritma Cannon secara paralel dan mengatur beberapa faktor seperti jumlah prosesor yang digunakan, algoritma Cannon dapat menjadi lebih efisien dari \textit{Naive algorithm}.
 
 \subsection{Pengujian Cannon Algoirthm}
-test
+
+\begin{figure}[h]
+    \includegraphics[width = 8cm, height = 4cm]{Cannon_1000.png}
+    \centering
+    \caption{Perkalian matriks ukuran $1.000\times1.000$}
+ \end{figure}
+ 
+ \begin{figure}[h]
+    \includegraphics[width = 8cm, height = 4cm]{Cannon_10000.png}
+    \centering
+    \caption{Perkalian matriks ukuran $10.000\times10.000$}
+ \end{figure}
 
 
 \subsection{Source Code Program}
@@ -245,7 +257,11 @@ Implementasi ketiga algoritma ini dalam bahasa pemrograman C dapat dilihat di
 \href{https://github.com/Fariz06/Tugas-5-PMC}{github.com/Fariz06/Tugas-5-PMC}.
 
 \section{Kesimpulan}
-Kesimpulannya pusing tujuh keliling
+Berdasarkan implementasi ketiga algoritma dengan bahasa pemrograman C,
+urutan algoritma dari yang tercepat sampai yang terlama adalah \textit{Naive Algorithm}, algoritma Strassen, dan algoritma Cannon.
+Hal ini disebabkan oleh implementasi yang tidak bisa persis sesuai dengan pseudocode.
+Ditinjau dari pseudocode, algoritma Strassen lebih cepat dari \textit{Naive Algorithm} dan algoritma Cannon dapat lebih cepat dari kedua algoritma tersebut
+jika algoritma Cannon diimplementasikan secara paralel.
 
 \begin{thebibliography}{00}
 \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
