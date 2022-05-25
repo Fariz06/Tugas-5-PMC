@@ -43,7 +43,7 @@ void fill_matrix(int N, int new_size, int **matrix1, int** matrix2)
 }
 
 // Menjumlahkan matriks
-int** sum_mat(int **mat_A, int **mat_B, int ukuran, int *count)
+int** sum_mat(int **mat_A, int **mat_B, int ukuran)
 {
     int **hasil_sum = (int**)malloc(ukuran * sizeof(int*));
     for(int i = 0; i < ukuran; ++i){
@@ -53,14 +53,13 @@ int** sum_mat(int **mat_A, int **mat_B, int ukuran, int *count)
     for(int i = 0; i < ukuran; ++i){
         for(int j = 0; j < ukuran; ++j){
             hasil_sum[i][j] = mat_A[i][j] + mat_B[i][j];
-            *count += 1;
         }
     }
     return hasil_sum;
 }
 
 // Menghasilkan selisih matriks A - matriks B
-int** subtract_mat(int **mat_A, int **mat_B, int ukuran, int *count)
+int** subtract_mat(int **mat_A, int **mat_B, int ukuran)
 {
     int **hasil_sub = (int**)malloc(ukuran * sizeof(int*));
     for(int i = 0; i < ukuran; ++i){
@@ -70,7 +69,6 @@ int** subtract_mat(int **mat_A, int **mat_B, int ukuran, int *count)
     for(int i = 0; i < ukuran; ++i){
         for(int j = 0; j < ukuran; ++j){
             hasil_sub[i][j] = mat_A[i][j] - mat_B[i][j];
-            *count += 1;
         }
     }
     return hasil_sub;
@@ -139,7 +137,7 @@ void free_struct(extracted_matrix submat, int dim)
 }
 
 // Algoritma Strassen
-int** Strassen(int **mat1, int **mat2, int dim, int *count)
+int** Strassen(int **mat1, int **mat2, int dim)
 {
     if(dim == 1){
         int** temp = (int**)malloc(sizeof(int*));
@@ -156,18 +154,18 @@ int** Strassen(int **mat1, int **mat2, int dim, int *count)
         int **C11, **C12, **C21, **C22;
         extracted_matrix submat;
         submat = extract_mat(mat1, mat2, dim);
-        M1 = Strassen(subtract_mat(submat.A12, submat.A22, dim / 2,count), sum_mat(submat.B21, submat.B22, dim / 2,count), dim / 2, count);
-        M2 = Strassen(sum_mat(submat.A11, submat.A22, dim / 2,count), sum_mat(submat.B11, submat.B22, dim / 2,count), dim / 2, count);
-        M3 = Strassen(subtract_mat(submat.A11, submat.A21, dim / 2,count), sum_mat(submat.B11, submat.B12, dim / 2,count), dim / 2, count);
-        M4 = Strassen(sum_mat(submat.A11, submat.A12, dim / 2,count), submat.B22, dim / 2, count);
-        M5 = Strassen(submat.A11, subtract_mat(submat.B12, submat.B22, dim / 2,count), dim / 2, count);
-        M6 = Strassen(submat.A22, subtract_mat(submat.B21, submat.B11, dim / 2,count), dim / 2, count);
-        M7 = Strassen(sum_mat(submat.A21, submat.A22, dim / 2,count), submat.B11, dim / 2, count);
+        M1 = Strassen(subtract_mat(submat.A12, submat.A22, dim / 2), sum_mat(submat.B21, submat.B22, dim / 2), dim / 2);
+        M2 = Strassen(sum_mat(submat.A11, submat.A22, dim / 2), sum_mat(submat.B11, submat.B22, dim / 2), dim / 2);
+        M3 = Strassen(subtract_mat(submat.A11, submat.A21, dim / 2), sum_mat(submat.B11, submat.B12, dim / 2), dim / 2);
+        M4 = Strassen(sum_mat(submat.A11, submat.A12, dim / 2), submat.B22, dim / 2);
+        M5 = Strassen(submat.A11, subtract_mat(submat.B12, submat.B22, dim / 2), dim / 2);
+        M6 = Strassen(submat.A22, subtract_mat(submat.B21, submat.B11, dim / 2), dim / 2);
+        M7 = Strassen(sum_mat(submat.A21, submat.A22, dim / 2), submat.B11, dim / 2);
 
-        C11 = subtract_mat(sum_mat(sum_mat(M1, M2, dim / 2, count), M6, dim / 2, count), M4, dim / 2,count);
-        C12 = sum_mat(M4, M5, dim / 2,count);
-        C21 = sum_mat(M6, M7, dim / 2,count);
-        C22 = subtract_mat(subtract_mat(sum_mat(M2, M5, dim / 2,count), M3, dim / 2, count), M7, dim / 2, count);
+        C11 = subtract_mat(sum_mat(sum_mat(M1, M2, dim / 2), M6, dim / 2), M4, dim / 2);
+        C12 = sum_mat(M4, M5, dim / 2);
+        C21 = sum_mat(M6, M7, dim / 2);
+        C22 = subtract_mat(subtract_mat(sum_mat(M2, M5, dim / 2), M3, dim / 2), M7, dim / 2);
 
         for(int i = 0; i < dim / 2; ++i){
             for(int j = 0; j < dim / 2; ++j){
@@ -196,11 +194,10 @@ int** Strassen(int **mat1, int **mat2, int dim, int *count)
 
 int main()
 {
-    int N, new_size, i ,j, count;
+    int N, new_size, i ,j;
     clock_t start, end;
     double dura;
     srand(time(0));
-    count = 0;
 
     printf("Ukuran matriks : ");
     scanf("%d", &N);
@@ -216,11 +213,10 @@ int main()
 
     fill_matrix(N, new_size, A, B);
     start = clock();
-    C = Strassen(A, B, new_size, &count);
+    C = Strassen(A, B, new_size);
     end = clock();
     dura = (double)(end - start)/CLOCKS_PER_SEC;
     printf("Lama proses : %lf s\n", dura);
-    printf("N = %d", count);
 
     for(int i = 0; i < new_size; ++i){
         free(A[i]);
